@@ -12,11 +12,11 @@ def index():
 @app.route('/data')
 def get_data():
     data = Trainer.query.all()
-    return jsonify([{"trainer id": row.tr_trainerid, "trainer name": row.tr_name} for row in data])
+    return jsonify([{"trainer id": row.tr_trainerid, "trainer_name": row.tr_name} for row in data])
 
 # ADD CODE BELOW
 
-#Route that allows users to add trainers (but just their trainer_id and name) to the database; expand this to add entire entries
+#Route that allows users to add trainers (but just their trainer ID and name) to the database; expand this to add entire entries
 @app.route('/add-trainer', methods=['POST'])
 def add_trainer():
     # Extract data from the incoming request
@@ -42,11 +42,11 @@ def add_trainer():
         db.session.rollback()
         return jsonify({'error': 'Failed to add new trainer', 'details': str(e)}), 500
 
-# Route that allows users to remove trainers (but just their trainer_id and name) to the database; expand this to remove entire entries
-@app.route('/delete-trainer/<int:trainer_id>', methods=['DELETE'])
-def delete_trainer(tr_trainer_id):
+# Route that allows users to remove trainers (but just their trainer ID and name) to the database; expand this to remove entire entries
+@app.route('/delete-trainer/<int:tr_trainerid>', methods=['DELETE'])
+def delete_trainer(tr_trainerid):
     # Find the trainer by their ID
-    trainer = Trainer.query.get(tr_trainer_id)
+    trainer = Trainer.query.get(tr_trainerid)
     if not trainer:
         return jsonify({'error': 'Trainer not found'}), 404
 
