@@ -16,21 +16,45 @@ def get_data():
 
 # ADD CODE BELOW
 
-#Route that allows users to add pokemon to the database; expand this to add entire entries
+#Route that allows users to add trainers (but just their trainer_id and name) to the database; expand this to add entire entries
+@app.route('/add-trainer', methods=['POST'])
+def add_trainer():
+    # Extract data from the incoming request
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No input data provided'}), 400
 
-# Route that allows users to remove pokemon from the database; expand this to remove entire entries
-@app.route('/delete-pokemon/<int:pokemon_id>', methods=['DELETE'])
-def delete_pokemon(pokemon_id):
-    # Find the Pokémon by ID
-    pokemon = Pokemon.query.get(pokemon_id)
-    if pokemon is None:
-        return jsonify({'error': 'Pokémon not found'}), 404
+    tr_trainerid = data.get('tr_trainerid')
+    tr_name = data.get('tr_name')
+    
+    if not all([tr_trainerid, tr_name]):
+        return jsonify({'error': 'Missing data'}), 400
 
-    # Delete the Pokémon from the database
+    # Create a new Trainer instance
+    new_trainer = Trainer(tr_trainerid = tr_trainerid, tr_name=tr_name)
+
+    # Add the new trainer to the session and commit it to the database
+    db.session.add(new_trainer)
     try:
-        db.session.delete(pokemon)
         db.session.commit()
-        return jsonify({'message': 'Pokémon deleted successfully'}), 200
+        return jsonify({'message': 'New trainer added successfully', 'trainer_id': new_trainer.tr_trainerid}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Failed to add new trainer', 'details': str(e)}), 500
+
+# Route that allows users to remove trainers (but just their trainer_id and name) to the database; expand this to remove entire entries
+@app.route('/delete-trainer/<int:trainer_id>', methods=['DELETE'])
+def delete_trainer(tr_trainer_id):
+    # Find the trainer by their ID
+    trainer = Trainer.query.get(tr_trainer_id)
+    if not trainer:
+        return jsonify({'error': 'Trainer not found'}), 404
+
+    # Attempt to delete the trainer from the database
+    try:
+        db.session.delete(trainer)
+        db.session.commit()
+        return jsonify({'message': 'Trainer deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Failed to delete trainer', 'details': str(e)}), 500
