@@ -16,7 +16,9 @@ def get_data():
 
 # ADD CODE BELOW
 
-# Route that allows users to remove entries from the database
+#Route that allows users to add pokemon to the database; expand this to add entire entries
+
+# Route that allows users to remove pokemon from the database; expand this to remove entire entries
 @app.route('/delete-pokemon/<int:pokemon_id>', methods=['DELETE'])
 def delete_pokemon(pokemon_id):
     # Find the Pokémon by ID
