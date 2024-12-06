@@ -1,6 +1,6 @@
 from flask import render_template, Flask, jsonify
 from . import db
-from .models import Trainer
+from .models import *
 from flask import current_app as app
 from sqlalchemy import create_engine, text
 
@@ -50,9 +50,66 @@ def get_data():
     # columns = data.keys()
     # return render_template('home.html', data=trainerData)
     return render_template('home.html', data=trainerData, columns = trainerColumns, table_name=table_name)
-    return jsonify([{"trainer id": row.tr_trainerid, "trainer_name": row.tr_name} for row in data])
+    # return jsonify([{"trainer id": row.tr_trainerid, "trainer_name": row.tr_name} for row in data])
 
 # ADD CODE BELOW
+@app.route('/type')
+def get_type():
+    table_name="Types"
+    data = Type.query.all()
+    typeColumns = ["Types"]
+
+    # with engine.connect() as conn:
+    #     result = conn.execute(text("SELECT * FROM Trainer"))
+    # data1 = [row for row in data]  # Convert result to a list of rows
+    typeData = []
+    for row in data:
+        typeData.append([row.t_name])
+    print(data)
+    print(typeData)
+    # columns = data.keys()
+    # return render_template('home.html', data=trainerData)
+    return render_template('home.html', data=typeData, columns = typeColumns, table_name=table_name)
+    # return jsonify([{"trainer id": row.tr_trainerid, "trainer_name": row.tr_name} for row in data])
+
+@app.route('/move')
+def get_moves():
+    table_name="Moves"
+    data = Move.query.all()
+    moveColumns = ["Name", "Power", "Accuracy", "Type", "PP"]
+
+    # with engine.connect() as conn:
+    #     result = conn.execute(text("SELECT * FROM Trainer"))
+    # data1 = [row for row in data]  # Convert result to a list of rows
+    moveData = []
+    for row in data:
+        moveData.append([row.m_name, row.m_power, row.m_acc, row.m_type, row.m_pp])
+    print(data)
+    print(moveData)
+    # columns = data.keys()
+    # return render_template('home.html', data=trainerData)
+    return render_template('home.html', data=moveData, columns = moveColumns, table_name=table_name)
+    # return jsonify([{"trainer id": row.tr_trainerid, "trainer_name": row.tr_name} for row in data])
+
+@app.route('/nature')
+def get_nature():
+    table_name="Nature"
+    data = Nature.query.all()
+    natureColumns = ["Name", "Stat Bonus", "Stat Defect"]
+
+    # with engine.connect() as conn:
+    #     result = conn.execute(text("SELECT * FROM Trainer"))
+    # data1 = [row for row in data]  # Convert result to a list of rows
+    natureData = []
+    for row in data:
+        natureData.append([row.n_name, row.n_statbonus, row.n_statdefect])
+    print(data)
+    print(natureData)
+    # columns = data.keys()
+    # return render_template('home.html', data=trainerData)
+    return render_template('home.html', data=natureData, columns = natureColumns, table_name=table_name)
+    # return jsonify([{"trainer id": row.tr_trainerid, "trainer_name": row.tr_name} for row in data])
+
 
 #Route that allows users to add trainers (but just their trainer ID and name) to the database; expand this to add entire entries
 @app.route('/add-trainer', methods=['POST'])
