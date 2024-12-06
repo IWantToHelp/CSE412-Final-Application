@@ -6,6 +6,9 @@
     <title>Pokemon Website</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -21,7 +24,7 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/data">Trainer</a>
+                    <a class="nav-link" href="/trainer">Trainer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/move">Moves</a>
@@ -29,12 +32,36 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/nature">Natures</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/immunity">Immunities</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/neutral">Neutral</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/super">Super Effective</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/not">Not Very Effective</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pokemon">Trainer's Pokemon</a>
+                </li>
             </ul>
         </div>
     </nav>
     
-    
     <div class="center">
+        This website serves as a centralized way to access information about pokemon, such as the trainers, natures, and pokemon. 
+    </div>
+    <div class="center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/240px-Pok%C3%A9_Ball_icon.svg.png" alt="big" width="100" height="100">
+        <img src="https://www.smogon.com/dex/media/sprites/xy/pikachu.gif" alt="PiKaChu">
+        <img src="https://www.smogon.com/dex/media/sprites/xy/onix.gif" alt="OnIx">
+        <img src="https://www.smogon.com/dex/media/sprites/xy/charizard.gif" alt="charizard">
+        <img src="https://www.smogon.com/dex/media/sprites/xy/bulbasaur.gif" alt="bulbasaur">
+        <img src="https://www.smogon.com/dex/media/sprites/xy/gengar.gif" alt="gengar">
+        <img src="https://www.smogon.com/dex/media/sprites/xy/eternatus.gif" alt="big">
         <h1> {{ table_name }} </h1>
 
         <table class="styled-table ">
