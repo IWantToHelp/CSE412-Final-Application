@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon Website</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </head>
+
 <body>
      <!-- Reference: https://getbootstrap.com/docs/4.0/components/navbar/ -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,8 +20,28 @@
             </ul>
         </div>
     </nav>
-    
-    <h1> Pokemon Thingy </h1>
+    <div class="center">
+        <h1> {{ table_name }} </h1>
+
+        <table class="styled-table ">
+            <thead>
+                <tr>
+                    {% for column in columns %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
     
 </body>
 </html>
