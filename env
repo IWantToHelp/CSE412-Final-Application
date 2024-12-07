@@ -1,0 +1,4 @@
+FLASK_APP = run.py
+FLASK_ENV = dev
+DATABASE_URL = postgresql://<user>:<password>@localhost:5432/<database_name> 
+SECRET_KEY = 9f3a4aefbc58f24bd8ad40cfb9e4732b6b9d1a39e21b2e67f11b5de6aa7e14f4
